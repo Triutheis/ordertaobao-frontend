@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    fetch('http://localhost:3000/api/products')
+    fetch('https://ordertaobao-backend.vercel.app/api/products')
         .then(response => response.json())
         .then(products => {
             const productList = document.getElementById('product-list');
