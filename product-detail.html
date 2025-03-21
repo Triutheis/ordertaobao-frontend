@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="website icon" type="jpeg" href=".//library/icon.jpeg">
+    <title>Chi tiết sản phẩm - Order Hàng Taobao</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="fade-in">
+        <div class="container">
+            <h1><i class="fas fa-shopping-bag"></i> Order Hàng Taobao</h1>
+            <nav>
+                <a href="index.html#intro">Giới thiệu</a>
+                <a href="products.html">Sản phẩm</a>
+                <a href="index.html#tiktok">TikTok</a>
+                <a href="index.html#contact">Liên hệ</a>
+                <a href="dashboard.html" class="settings-btn"><i class="fas fa-cog"></i></a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Chi tiết sản phẩm -->
+    <section class="product-detail fade-in">
+        <div class="container">
+            <h2 id="product-name" class="slide-up"></h2>
+            <div class="product-content">
+                <div class="product-media">
+                    <div id="product-video-container"></div>
+                    <div class="product-images" id="product-images"></div>
+                </div>
+                <div class="product-info">
+                    <p id="product-description"></p>
+                    <a href="https://zalo.me/0972329553" target="_blank" class="btn pulse">Order ngay</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="fade-in">
+        <p>© 2025 Order Hàng Taobao. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = urlParams.get('id');
+        fetch('http://localhost:3000/api/products')
+            .then(response => response.json())
+            .then(products => {
+                const product = products.find(p => p.id == productId);
+                if (product) {
+                    document.getElementById('product-name').textContent = product.name;
+                    document.getElementById('product-description').textContent = product.description;
+
+                    const videoContainer = document.getElementById('product-video-container');
+                    if (product.video && product.video.trim() !== "") {
+                        const videoIframe = document.createElement('iframe');
+                        videoIframe.id = 'product-video';
+                        videoIframe.src = product.video;
+                        videoIframe.frameBorder = '0';
+                        videoIframe.allowFullscreen = true;
+                        videoContainer.appendChild(videoIframe);
+                    }
+
+                    const imagesDiv = document.getElementById('product-images');
+                    product.images.forEach(img => {
+                        const imgElement = document.createElement('img');
+                        imgElement.src = img;
+                        imgElement.alt = product.name;
+                        imagesDiv.appendChild(imgElement);
+                    });
+                }
+            })
+            .catch(error => console.error('Lỗi tải sản phẩm:', error));
+    </script>
+</body>
+</html>
