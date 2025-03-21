@@ -48,7 +48,7 @@
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         const productId = urlParams.get('id');
-        fetch('http://localhost:3000/api/products')
+        fetch('https://ordertaobao-backend.vercel.app/api/products')
             .then(response => response.json())
             .then(products => {
                 const product = products.find(p => p.id == productId);
