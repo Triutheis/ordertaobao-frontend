@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     function loadProducts() {
-        fetch('http://localhost:3000/api/products') // Sẽ đổi thành URL backend sau khi triển khai
+        fetch('https://ordertaobao-backend.vercel.app/api/products') // Sẽ đổi thành URL backend sau khi triển khai
             .then(response => response.json())
             .then(products => {
                 const productList = document.getElementById('product-list');
@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
         selectedImages.forEach((file) => {
             formData.append(`images`, file);
         });
-        fetch('http://localhost:3000/api/products', { // Sẽ đổi thành URL backend
+        fetch('https://ordertaobao-backend.vercel.app/api/products', { // Sẽ đổi thành URL backend
             method: 'POST',
             body: formData
         })
@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     window.editProduct = function(id) {
-        fetch('http://localhost:3000/api/products') // Sẽ đổi thành URL backend
+        fetch('https://ordertaobao-backend.vercel.app/api/products') // Sẽ đổi thành URL backend
             .then(response => response.json())
             .then(products => {
                 const product = products.find(p => p.id === id);
@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         const id = formData.get('id');
         if (confirm('Bạn có chắc muốn lưu thay đổi này?')) { // Thêm xác nhận
-            fetch(`http://localhost:3000/api/products/${id}`, { // Sẽ đổi thành URL backend
+            fetch(`https://ordertaobao-backend.vercel.app/api/products/${id}`, { // Sẽ đổi thành URL backend
                 method: 'PUT',
                 body: formData
             })
@@ -157,7 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.deleteProduct = function(id) {
         if (confirm('Bạn có chắc muốn xóa sản phẩm này?')) {
-            fetch(`http://localhost:3000/api/products/${id}`, { // Sẽ đổi thành URL backend
+            fetch(`https://ordertaobao-backend.vercel.app/api/products/${id}`, { // Sẽ đổi thành URL backend
                 method: 'DELETE'
             })
             .then(response => response.json())
